@@ -11,6 +11,8 @@ function ConvertHandler() {
   this.getNum = function(input) {
     const num = input.replace(/[a-zA-z]+/, '');
     if(!num) return 1;
+    if(num.indexOf('//') > -1 || num.indexOf('..') > -1)
+      return 'invalid number';
     try
       {
         return eval(num);
@@ -25,14 +27,13 @@ function ConvertHandler() {
     const m = input.match(/[a-zA-z]+/);
     if(!m) return 'invalid unit';
     let unit = m[0].toLowerCase();
-    if(unit === 'l') return 'L';
-    return ['gal', 'lbs', 'kg', 'mi', 'km'].indexOf(unit) > -1 ? unit : 'invalid unit';
+    return ['gal', 'lbs', 'l', 'kg', 'mi', 'km'].indexOf(unit) > -1 ? unit : 'invalid unit';
   };
   
   this.getReturnUnit = function(initUnit) {
     
     const unit = [
-      ['gal', 'L'],
+      ['gal', 'l'],
       ['lbs', 'kg'],
       ['mi', 'km']
     ];
@@ -49,7 +50,7 @@ function ConvertHandler() {
     switch(unit)
       {
         case 'gal': return 'galileo';
-        case 'L': return 'Litre';
+        case 'l': return 'litre';
         case 'lbs': return 'pound';
         case 'kg': return 'kilogram';
         case 'mi': return 'mile';
@@ -66,7 +67,7 @@ function ConvertHandler() {
     
     switch(returnUnit)
       {
-        case 'L': return initNum * galToL;
+        case 'l': return initNum * galToL;
         case 'gal': return initNum / galToL;
         case 'kg': return initNum * lbsToKg;
         case 'lbs': return initNum / lbsToKg;

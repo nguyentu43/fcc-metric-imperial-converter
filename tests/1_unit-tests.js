@@ -24,28 +24,32 @@ suite('Unit Tests', function(){
     
     test('Decimal Input', function(done) {
       var input = '3.045kg';
-      assert.equal()
+      assert.equal(convertHandler.getNum(input), 3.045);
       done();
     });
     
     test('Fractional Input', function(done) {
-      
-      //done();
+      var input = '3/2kg';
+      assert.equal(convertHandler.getNum(input), 3/2);
+      done();
     });
     
     test('Fractional Input w/ Decimal', function(done) {
-      
-      //done();
+      var input = '3.2/2kg';
+      assert.equal(convertHandler.getNum(input), 3.2/2);
+      done();
     });
     
     test('Invalid Input (double fraction)', function(done) {
-      
-      //done();
+      var input = '3.2//2kg';
+      assert.equal(convertHandler.getNum(input), 'invalid number');
+      done();
     });
     
     test('No Numerical Input', function(done) {
-      
-      //done();
+      var input = 'gal';
+      assert.equal(convertHandler.getNum(input), 1);
+      done();
     }); 
     
   });
@@ -55,14 +59,15 @@ suite('Unit Tests', function(){
     test('For Each Valid Unit Inputs', function(done) {
       var input = ['gal','l','mi','km','lbs','kg','GAL','L','MI','KM','LBS','KG'];
       input.forEach(function(ele) {
-        //assert
+        assert.notEqual(convertHandler.getUnit(ele), 'invalid unit');
       });
       done();
     });
     
     test('Unknown Unit Input', function(done) {
-      
-      //done();
+      var input = 'g';
+      assert.equal(convertHandler.getUnit(input), 'invalid unit');
+      done();
     });  
     
   });
@@ -82,8 +87,18 @@ suite('Unit Tests', function(){
   
   suite('Function convertHandler.spellOutUnit(unit)', function() {
     
+        case 'gal': return 'galileo';
+        case 'l': return 'litre';
+        case 'lbs': return 'pound';
+        case 'kg': return 'kilogram';
+        case 'mi': return 'mile';
+        case 'km': return 'kilometer';
     test('For Each Valid Unit Inputs', function(done) {
-      //see above example for hint
+      var input = ['gal','l','mi','km','lbs','kg'];
+      var expect = ['galileo','gal','km','mi','kg','lbs'];
+      input.forEach(function(ele, i) {
+        assert.equal(convertHandler.getReturnUnit(ele), expect[i]);
+      });
       done();
     });
     
