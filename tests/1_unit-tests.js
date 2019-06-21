@@ -87,17 +87,11 @@ suite('Unit Tests', function(){
   
   suite('Function convertHandler.spellOutUnit(unit)', function() {
     
-        case 'gal': return 'galileo';
-        case 'l': return 'litre';
-        case 'lbs': return 'pound';
-        case 'kg': return 'kilogram';
-        case 'mi': return 'mile';
-        case 'km': return 'kilometer';
     test('For Each Valid Unit Inputs', function(done) {
       var input = ['gal','l','mi','km','lbs','kg'];
-      var expect = ['galileo','gal','km','mi','kg','lbs'];
+      var expect = ['galileo','litre','mile','kilometer','pound','kilogram'];
       input.forEach(function(ele, i) {
-        assert.equal(convertHandler.getReturnUnit(ele), expect[i]);
+        assert.equal(convertHandler.spellOutUnit(ele), expect[i]);
       });
       done();
     });
@@ -114,28 +108,38 @@ suite('Unit Tests', function(){
     });
     
     test('L to Gal', function(done) {
-      
-      //done();
+      var input = [4, 'l'];
+      var expected = 1.05669;
+      assert.approximately(convertHandler.convert(input[0],input[1]),expected,0.1); //0.1 tolerance
+      done();
     });
     
     test('Mi to Km', function(done) {
-      
-      //done();
+      var input = [2.5, 'mi'];
+      var expected = 4.02335;
+      assert.approximately(convertHandler.convert(input[0],input[1]),expected,0.1); //0.1 tolerance
+      done();
     });
     
     test('Km to Mi', function(done) {
-      
-      //done();
+      var input = [6.224, 'km'];
+      var expected = 3.86742;
+      assert.approximately(convertHandler.convert(input[0],input[1]),expected,0.1); //0.1 tolerance
+      done();
     });
     
     test('Lbs to Kg', function(done) {
-      
-      //done();
+      var input = [6.224, 'kg'];
+      var expected = 13.72158;
+      assert.approximately(convertHandler.convert(input[0],input[1]),expected,0.1); //0.1 tolerance
+      done();
     });
     
     test('Kg to Lbs', function(done) {
-      
-      //done();
+      var input = [6.224, 'lbs'];
+      var expected = 2.82316;
+      assert.approximately(convertHandler.convert(input[0],input[1]),expected,0.1); //0.1 tolerance
+      done();
     });
     
   });

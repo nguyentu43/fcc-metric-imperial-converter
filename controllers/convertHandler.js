@@ -26,8 +26,8 @@ function ConvertHandler() {
   this.getUnit = function(input) {
     const m = input.match(/[a-zA-z]+/);
     if(!m) return 'invalid unit';
-    let unit = m[0].toLowerCase();
-    return ['gal', 'lbs', 'l', 'kg', 'mi', 'km'].indexOf(unit) > -1 ? unit : 'invalid unit';
+    let unit = m[0];
+    return ['gal', 'lbs', 'l', 'kg', 'mi', 'km'].indexOf(unit.toLowerCase()) > -1 ? unit : 'invalid unit';
   };
   
   this.getReturnUnit = function(initUnit) {
@@ -40,14 +40,14 @@ function ConvertHandler() {
     
     for(const pair of unit)
       {
-        const i = pair.indexOf(initUnit);
+        const i = pair.indexOf(initUnit.toLowerCase());
         if(i > -1)
           return pair[Math.abs(i - 1)];
       }
   };
 
   this.spellOutUnit = function(unit) {
-    switch(unit)
+    switch(unit.toLowerCase())
       {
         case 'gal': return 'galileo';
         case 'l': return 'litre';
@@ -65,14 +65,14 @@ function ConvertHandler() {
     const miToKm = 1.60934;
     const returnUnit = this.getReturnUnit(initUnit);
     
-    switch(returnUnit)
+    switch(returnUnit.toLowerCase())
       {
         case 'l': return initNum * galToL;
         case 'gal': return initNum / galToL;
         case 'kg': return initNum * lbsToKg;
         case 'lbs': return initNum / lbsToKg;
         case 'km': return initNum * miToKm;
-        case 'km': return initNum / miToKm;
+        case 'mi': return initNum / miToKm;
         default: throw new Error('invalid unit');
       }
   };
