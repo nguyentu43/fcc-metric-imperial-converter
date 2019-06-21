@@ -17,15 +17,17 @@ function ConvertHandler() {
   };
   
   this.getReturnUnit = function(initUnit) {
+    
+    const lcUnit = initUnit.toLowerCase();
     const unit = [
-      ['gal', 'L'],
+      ['gal', 'l'],
       ['lbs', 'kg'],
       ['mi', 'km']
     ];
     
     for(const pair of unit)
       {
-        const i = pair.indexOf(initUnit);
+        const i = pair.indexOf(lcUnit);
         if(i > 0)
           return pair[Math.abc(i - 1)];
       }
@@ -43,6 +45,15 @@ function ConvertHandler() {
     const miToKm = 1.60934;
     const returnUnit = this.getReturnUnit(initUnit);
     
+    switch(returnUnit)
+      {
+        case 'l': return initUnit * galToL;
+        case 'gal': return initUnit / galToL;
+        case 'kg': return initUnit * lbsToKg;
+        case 'lbs': return initUnit / lbsToKg;
+        case 'km': return initUnit * miToKm;
+        case 'km': return initUnit / miToKm;
+      }
     
   };
   
