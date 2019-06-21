@@ -9,12 +9,11 @@
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    const m = input.match(/\d+(?:\/|\.)?\d+/);
-    if(!m) return 1;
-    
+    const num = input.replace(/[a-zA-z]+/, '');
+    if(!num) return 1;
     try
       {
-        return eval(m[0]);
+        return eval(num);
       }
     catch(error)
       {
@@ -47,7 +46,6 @@ function ConvertHandler() {
   };
 
   this.spellOutUnit = function(unit) {
-    console.log(unit);
     switch(unit)
       {
         case 'gal': return 'galileo';
@@ -68,19 +66,20 @@ function ConvertHandler() {
     
     switch(returnUnit)
       {
-        case 'l': return initUnit * galToL;
-        case 'gal': return initUnit / galToL;
-        case 'kg': return initUnit * lbsToKg;
-        case 'lbs': return initUnit / lbsToKg;
-        case 'km': return initUnit * miToKm;
-        case 'km': return initUnit / miToKm;
+        case 'L': return initNum * galToL;
+        case 'gal': return initNum / galToL;
+        case 'kg': return initNum * lbsToKg;
+        case 'lbs': return initNum / lbsToKg;
+        case 'km': return initNum * miToKm;
+        case 'km': return initNum / miToKm;
         default: throw new Error('invalid unit');
       }
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    const plural = initNum >= 2 ? 's' : '';
-    return `${initNum} ${initUnit} converts to ${returnNum.toFixed(5)} ${returnUnit + plural}`;
+    const i_plural = initNum >= 2 ? 's' : '';
+    const r_plural = returnNum >= 2 ? 's' : '';
+    return `${initNum} ${this.spellOutUnit(initUnit) + i_plural} converts to ${returnNum.toFixed(5)} ${this.spellOutUnit(returnUnit) + r_plural}`;
   };
   
 }
