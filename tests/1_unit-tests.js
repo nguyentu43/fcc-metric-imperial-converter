@@ -23,8 +23,9 @@ suite('Unit Tests', function(){
     });
     
     test('Decimal Input', function(done) {
-      
-      //done();
+      var input = '3.045kg';
+      assert.equal()
+      done();
     });
     
     test('Fractional Input', function(done) {
