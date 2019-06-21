@@ -9,16 +9,19 @@
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    return parseFloat(input);
+    const m = input.match(/\d+(?:\/|\.)?\d+/);
+    if(!m)
   };
   
   this.getUnit = function(input) {
-    return input.replace(/(\d|\.)+/, '');
+    const m = input.match(/[a-zA-z]+/);
+    if(!m) return 'invalid unit';
+    const unit = m[0].toLowerCase();
+    return ['gal', 'l', 'lbs', 'kg', 'mi', 'km'].indexOf(unit) > -1 ? unit : 'invalid unit';
   };
   
   this.getReturnUnit = function(initUnit) {
     
-    const lcUnit = initUnit.toLowerCase();
     const unit = [
       ['gal', 'l'],
       ['lbs', 'kg'],
@@ -27,7 +30,7 @@ function ConvertHandler() {
     
     for(const pair of unit)
       {
-        const i = pair.indexOf(lcUnit);
+        const i = pair.indexOf(initUnit);
         if(i > 0)
           return pair[Math.abc(i - 1)];
       }
