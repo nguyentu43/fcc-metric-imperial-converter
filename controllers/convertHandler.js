@@ -41,12 +41,13 @@ function ConvertHandler() {
     for(const pair of unit)
       {
         const i = pair.indexOf(initUnit);
-        if(i > 0)
-          return pair[Math.abc(i - 1)];
+        if(i > -1)
+          return pair[Math.abs(i - 1)];
       }
   };
 
   this.spellOutUnit = function(unit) {
+    console.log(unit);
     switch(unit)
       {
         case 'gal': return 'galileo';
@@ -78,9 +79,8 @@ function ConvertHandler() {
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    var result;
-    
-    return result;
+    const plural = initNum >= 2 ? 's' : '';
+    return `${initNum} ${initUnit} converts to ${returnNum.toFixed(5)} ${returnUnit + plural}`;
   };
   
 }
