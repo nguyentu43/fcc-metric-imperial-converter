@@ -11,7 +11,8 @@ function ConvertHandler() {
   this.getNum = function(input) {
     const num = input.replace(/[a-zA-z]+/, '');
     if(!num) return 1;
-    if(num.match(/\//g) > 1 || /(?:\.\d?){2}/g.test(num))
+    const m = num.match(/\//g);
+    if(m && m.length > 1)
       return 'invalid number';
     try
       {
